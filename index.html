@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>ToDo App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const toDoList =[];
+// Создаваемая задача
+    class CurrentTask extends React.Component {
+        state = {
+            completed: false,
+            text: this.text
+        };
+        handleCompletedTaskClick = (e) => {
+            e.preventDefault();
+            this.setState({completed: true})
+        };
+        render() {
+            const {text} = this.props.data;
+            return (
+                <div className="current-task">
+                    <input type="checkbox" onClick={this.handleCompletedTaskClick} className="task-check"/>
+                    <span className="task-text">{text}</span>
+                    <button className="task-delete">Del</button>
+                </div>
+
+            )
+        }
+    }
+
+    CurrentTask.propTypes = {
+        data: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            text: PropTypes.string.isRequired
+        })
+    };
+// Все задачи
+    class Tasks extends React.Component {
+        renderTasks = () => {
+            const {data} = this.props;
+            let taskTemplate = null;
+
+            if (data.length) {
+                taskTemplate = data.map((item) => {
+                    return <CurrentTask key={item.id} data={item}/>
+                });
+            } else {
+                taskTemplate = <p>No Tasks</p>
+            }
+            return taskTemplate
+        };
+        render() {
+            const {data} = this.props;
+            return (
+                <div className="task-element">
+                    {this.renderTasks()}
+                    {data.length ? <p>Tasks left: {data.length}</p> : null}
+                </div>
+            );
+        };
+
+    }
+
+    Tasks.propTypes = {
+        data: PropTypes.array.isRequired
+    };
+// Добавление задачи
+    class Add extends React.Component {
+        state = {
+            text: ''
+        };
+        onBtnClickHandler = (e) => {
+            e.preventDefault();
+            const {text} = this.state;
+            this.props.onAddTasks({
+                id: +new Date(),
+                text
+            });
+        };
+        handleTaskChange = (e) => {
+            this.setState({text: e.currentTarget.value})
+        };
+        validate = () => {
+            const {text} = this.state;
+            return !!text.trim();
+        };
+        render() {
+            const {text} = this.state;
+            return (
+                <div>
+                    <label className="check-all">
+                    <input
+                        type="checkbox"
+                        />
+                    </label>
+                    <input
+                        type="text"
+                        onChange={this.handleTaskChange}
+                        className="input-task"
+                        placeholder="What needs to be done?"
+                        value={text}/>
+                        <button
+                            className="add-task"
+                            onClick={this.onBtnClickHandler}
+                            disabled={!this.validate()}>
+                            Add task
+                        </button>
+                </div>
+            )
+        }
+    }
+
+    Add.propTypes = {
+        onAddTasks: PropTypes.func.isRequired,
+    };
+// Общий вид
+    class App extends React.Component {
+        state = {
+            tasks: toDoList,
+        };
+        handleAddTasks = (data) => {
+            const nextTask = [data, ...this.state.tasks]
+            this.setState({tasks: nextTask})
+        };
+        render() {
+            return (
+                <div className="container">
+                    <h1>To Do List</h1>
+                    <Add onAddTasks={this.handleAddTasks}/>
+                    <p/>
+                    <Tasks data={this.state.tasks}/>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+
+</script>
+</body>
+</html>
