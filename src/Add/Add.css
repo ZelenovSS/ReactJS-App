@@ -1,0 +1,15 @@
+.input {
+    text-align: center;
+}
+.input-task {
+    width: 70%;
+}
+.check-all {
+    float: left;
+    margin-right: 10px;
+}
+.add-task {
+    background-color: white;
+    border-radius: 5px;
+    float: right;
+}

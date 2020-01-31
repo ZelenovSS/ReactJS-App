@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import './Add.css';
 
 export default class Add extends React.Component {
     state = {
@@ -10,9 +11,11 @@ export default class Add extends React.Component {
         if (!!text.trim()) {
             this.props.onAddTasks({
                 id: +new Date(),
+                completed: false,
                 text
             });
         }
+
         this.setState({text: ''})
     };
     onAddEnter = (e) => {
@@ -32,28 +35,28 @@ export default class Add extends React.Component {
     render() {
         const {text} = this.state;
         return (
-            <div>
-                <label>
-                    <input
-                        type="checkbox"
-                        className="check-all"
-                        onChange={() => this.props.checked(this.state)}
-                    />
-                    <input
-                        type="text"
-                        onChange={this.handleTaskChange}
-                        className="input-task"
-                        placeholder="What needs to be done?"
-                        value={text}
-                        onKeyDown={(e) => this.onAddEnter(e)}
-                    />
-                    <button
-                        className="add-task"
-                        onClick={this.onAddBtnClick}
-                        disabled={!this.validate()}>
-                        Add task
-                    </button>
-                </label>
+            <div className='input'>
+                <input
+                    checked={this.props.allCheck}
+                    type="checkbox"
+                    className="check-all"
+                    onChange={this.props.checkAll}
+                />
+                <input
+                    type="text"
+                    onChange={this.handleTaskChange}
+                    className="input-task"
+                    placeholder="What needs to be done?"
+                    value={text}
+                    onKeyDown={this.onAddEnter}
+                />
+                <button
+                    className="add-task"
+                    onClick={this.onAddBtnClick}
+                    disabled={!this.validate()}>
+                    Add task
+                </button>
+
             </div>
         )
     }

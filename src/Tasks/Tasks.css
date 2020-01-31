@@ -1,0 +1,12 @@
+.tabs {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid;
+    margin-right: 3px;
+}
+.delete-all{
+    background-color: white;
+    float: right;
+    border-radius: 5px;
+    border: 1px solid;
+}

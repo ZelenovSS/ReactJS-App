@@ -1,0 +1,14 @@
+.current-task{
+    margin: 10px auto;
+}
+.task-check {
+    margin-right: 10px;
+}
+.task-text {
+
+}
+.task-delete {
+    float: right;
+    border-radius: 10px;
+    background: lightcoral
+}

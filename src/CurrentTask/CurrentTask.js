@@ -1,35 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import './CurrentTask.css';
 
 export default class CurrentTask extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            completed: false,
-            text: this.props.data ? this.props.data.text : '',
-            id: this.props.data ? this.props.data.id : ''
-        };
+        this.deleteTask = this.deleteTask.bind(this)
     }
-
-    onCompletedTaskClick = () => {
-        this.setState({completed: !this.state.completed})
+    onCompletedTaskClick = (e) => {
+        this.props.onClickCheckbox(e)
     };
 
+    deleteTask() {
+        this.props.delete(this.props.data)
+    }
+
     render() {
-        const {text} = this.props.data || '';
         return (
             (this.props.data && this.props.data.text) ?
                 <div className="current-task">
                     <input
+                        id={this.props.data.id}
+                        checked={this.props.data.completed}
+                        value={this.props.data.completed}
                         type="checkbox"
                         onChange={this.onCompletedTaskClick}
                         className="task-check"/>
                     <span
                         className="task-text"
-                    >{text}</span>
+                    >{this.props.data.text}</span>
                     <button
                         className="task-delete"
-                        onClick={() => this.props.delete(this.state)}
+                        onClick={this.deleteTask}
                     >Del
                     </button>
                 </div>
