@@ -18,14 +18,14 @@ export default class CurrentTask extends React.Component {
     render() {
         return (
             (this.props.data && this.props.data.text) ?
-                <div className="current-task">
+                <div className={`current-task ${this.props.data.completed ? 'task-complete' : ''}`}>
                     <input
                         id={this.props.data.id}
                         checked={this.props.data.completed}
                         value={this.props.data.completed}
                         type="checkbox"
                         onChange={this.onCompletedTaskClick}
-                        className="task-check"/>
+                        className='task-check'/>
                     <span
                         className="task-text"
                     >{this.props.data.text}</span>
