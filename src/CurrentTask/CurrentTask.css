@@ -1,18 +1,58 @@
 .current-task{
-    margin: 10px auto;
-}
-.task-check {
-    margin-right: 10px;
-}
-.task-text {
+    position: relative;
+    background-color: white;
+    border-bottom: 0.1px solid #ededed;
+    display: flex;
+    padding: 9px 0 9px 0;
 
 }
+.task-check {
+    display: none;
+}
+.fake {
+    display: inline-block;
+    width: 48px;
+    height: 41px;
+    position: relative;
+    background-image: url("unchecked.svg");
+}
+.fake::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 48px;
+    height: 41px;
+    margin-top: 1px;
+    background-image: url("checked.svg");
+    opacity: 0;
+    transition: .2s;
+}
+.task-check:checked + .fake::before {
+    opacity: 1;
+}
 .task-delete {
-    float: right;
-    border-radius: 10px;
-    background: lightcoral
+    position: absolute;
+    right: 0;
+    transition: .2s;
+    opacity: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 30px;
+    color: #cc9a9a;
+    border: none;
+    margin-right: 15px;
+}
+.current-task:hover .task-delete{
+    opacity: 1;
 }
 .task-complete {
-    color: lightgray;
+    color: #d9d9d9;
     text-decoration: line-through;
+}
+.current-task span {
+    vertical-align: middle;
+}
+.task-text {
+    font-size: 24px;
+    margin-left: 12.5px;
 }

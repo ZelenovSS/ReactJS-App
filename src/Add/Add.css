@@ -1,15 +1,51 @@
+.content {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
 .input {
-    text-align: center;
+    border-bottom: 0.1px solid #ededed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    height: 65px;
+    position: relative;
+}
+.input span {
+    vertical-align: middle;
 }
 .input-task {
-    width: 70%;
-}
-.check-all {
-    float: left;
-    margin-right: 10px;
+    font-weight: initial;
+    font-size: 24px;
+    width: 89%;
+    border: none;
 }
 .add-task {
-    background-color: white;
-    border-radius: 5px;
-    float: right;
+    display: none;
+    /*color: white;*/
+    /*margin-right: 5px;*/
+    /*padding: 2px 5px;*/
 }
+.check-all {
+    display: none;
+}
+.fake-add::before {
+    position: relative;
+    content: '❯';
+    font-size: 22px;
+    color: #e6e6e6;
+    padding: 10px 27px 10px 27px;
+    transition: .2s;
+}
+.fake-add {
+    position: absolute;
+    width: 60px;
+    height: 34px;
+    font-size: 22px;
+    transform: rotate(90deg);
+    top: 14px;
+    left: -10px;
+}
+.check-all:checked + .fake-add::before {
+    color: #737373;
+}
+

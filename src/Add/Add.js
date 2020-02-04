@@ -15,8 +15,7 @@ export default class Add extends React.Component {
                 text
             });
         }
-
-        this.setState({text: ''})
+        this.setState({text: ''});
     };
     onAddEnter = (e) => {
         if (e.keyCode === 13) {
@@ -25,7 +24,6 @@ export default class Add extends React.Component {
     };
     handleTaskChange = (e) => {
         this.setState({text: e.currentTarget.value});
-        e.currentTarget.value = '';
     };
     validate = () => {
         const {text} = this.state;
@@ -36,22 +34,25 @@ export default class Add extends React.Component {
         const {text} = this.state;
         return (
             <div className='input'>
+                <label>
                 <input
                     checked={this.props.allCheck}
-                    type="checkbox"
-                    className="check-all"
+                    type='checkbox'
+                    className='check-all'
                     onChange={this.props.checkAll}
                 />
+                <span className='fake-add'/>
+                </label>
                 <input
-                    type="text"
+                    type='text'
                     onChange={this.handleTaskChange}
-                    className="input-task"
-                    placeholder="What needs to be done?"
+                    className='input-task'
+                    placeholder='What needs to be done?'
                     value={text}
                     onKeyDown={this.onAddEnter}
                 />
                 <button
-                    className="add-task"
+                    className='add-task'
                     onClick={this.onAddBtnClick}
                     disabled={!this.validate()}>
                     Add task

@@ -1,7 +1,7 @@
 import React from 'react';
-import Add from "./Add/Add";
+import Add from './Add/Add';
 import './App.css';
-import Tasks from "./Tasks/Tasks";
+import Tasks from './Tasks/Tasks';
 
 class App extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class App extends React.Component {
         this.state = {
             tasks: [],
             currentTasks: [],
-            allCheck: false
+            allCheck: false,
         };
     }
 
@@ -47,11 +47,12 @@ class App extends React.Component {
         this.setState({
             tasks: activeTasks,
             currentTasks: activeTasks,
-        })
+        });
     };
     onAddTasksClick = (data) => {
-        const nextTask = [data, ...this.state.currentTasks];
+        const nextTask = [data, ...this.state.tasks];
         this.setState({tasks: nextTask, allCheck: false, currentTasks: nextTask});
+
     };
     onDelBtnClick = (e) => {
         let currentTasks = this.state.tasks.filter(item => item.id !== e.id);
@@ -88,23 +89,29 @@ class App extends React.Component {
     };
 
     render() {
+        const active = this.state.tasks.filter(item => !item.completed).length;
+        const finished = this.state.tasks.filter(item => item.completed).length;
         return (
             <div className='container'>
-                <h1 className='logo'>To Do List</h1>
-                <Add
-                    allCheck={this._checkStatus(this.state.currentTasks)}
-                    onAddTasks={this.onAddTasksClick}
-                    checkAll={this.onCheckAllClick}/>
-                <Tasks
-                    del={this.onDelBtnClick}
-                    data={this.state.currentTasks}
-                    onClickCheckbox={this.onClickCheckbox}
-                    all={this.onAllTasksClick}
-                    act={this.onActiveTasksClick}
-                    comp={this.onCompletedTasksClick}
-                    clear={this.onClearCompletedClick}
-                />
-
+                <h1 className='logo'>todos</h1>
+                <div className='content'>
+                    <Add
+                        allCheck={this._checkStatus(this.state.currentTasks)}
+                        onAddTasks={this.onAddTasksClick}
+                        checkAll={this.onCheckAllClick}/>
+                    <Tasks
+                        active={active}
+                        finished={finished}
+                        arrLength={this.state.tasks}
+                        del={this.onDelBtnClick}
+                        data={this.state.currentTasks}
+                        onClickCheckbox={this.onClickCheckbox}
+                        all={this.onAllTasksClick}
+                        act={this.onActiveTasksClick}
+                        comp={this.onCompletedTasksClick}
+                        clear={this.onClearCompletedClick}
+                    />
+                </div>
             </div>
         )
     }
