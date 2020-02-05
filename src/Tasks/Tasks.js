@@ -25,16 +25,16 @@ export default class Tasks extends React.Component {
     };
 
     render() {
-        const {data, all, act, comp, clear, arrLength, active, finished} = this.props;
+        const {data, all, act, comp, clear, arrLength, current, active, finished} = this.props;
         return (
-            <ul className={`task-element ${arrLength.length ? '' : 'do-not-show'}`}>
+            <ul className={`task-element ${arrLength ? '' : 'do-not-show'}`}>
                 {this.renderTasks()}
                 <div className='navigation'>
                     {data.length ? <p className='counter'>{active} items left</p> : null}
                     <span className='categories'>
-                        <button onClick={() => all()} className='tabs'>All</button>
-                        <button onClick={() => act()} className='tabs'>Active</button>
-                        <button onClick={() => comp()} className='tabs'>Completed</button>
+                        <button onClick={() => all()} className={`tabs ${current === 1 ? 'active-tab' : ''}`}>All</button>
+                        <button onClick={() => act()} className={`tabs ${current === 2 ? 'active-tab' : ''}`}>Active</button>
+                        <button onClick={() => comp()} className={`tabs ${current === 3 ? 'active-tab' : ''}`}>Completed</button>
                         </span>
                     <button onClick={() => clear()} className={`delete-all ${!finished ? 'do-not-show' : ''}`}>Clear completed</button>
                 </div>

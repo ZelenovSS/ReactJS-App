@@ -24,6 +24,7 @@ button {
     padding-left: 5px;
     font-size: 14px;
     color: #777;
+    outline: none;
 }
 .container {
     background-color: #f5f5f5;
@@ -43,3 +44,4 @@ button {
     text-align: center;
     margin-bottom: 5px;
 }
+

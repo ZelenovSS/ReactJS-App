@@ -10,6 +10,7 @@ class App extends React.Component {
             tasks: [],
             currentTasks: [],
             allCheck: false,
+            currentTab: 1
         };
     }
 
@@ -25,21 +26,24 @@ class App extends React.Component {
     };
     onAllTasksClick = () => {
         this.setState({
-            currentTasks: this.state.tasks
+            currentTasks: this.state.tasks,
+            currentTab: 1
         });
     };
     onActiveTasksClick = () => {
         this.setState({
             currentTasks: this.state.tasks.filter(item => {
                 return !item.completed
-            })
+            }),
+            currentTab: 2
         });
     };
     onCompletedTasksClick = () => {
         this.setState({
             currentTasks: this.state.tasks.filter(item => {
                 return item.completed
-            })
+            }),
+            currentTab: 3
         });
     };
     onClearCompletedClick = () => {
@@ -47,12 +51,12 @@ class App extends React.Component {
         this.setState({
             tasks: activeTasks,
             currentTasks: activeTasks,
+            currentTab: 1
         });
     };
     onAddTasksClick = (data) => {
         const nextTask = [data, ...this.state.tasks];
         this.setState({tasks: nextTask, allCheck: false, currentTasks: nextTask});
-
     };
     onDelBtnClick = (e) => {
         let currentTasks = this.state.tasks.filter(item => item.id !== e.id);
@@ -89,6 +93,7 @@ class App extends React.Component {
     };
 
     render() {
+        const current = this.state.currentTab;
         const active = this.state.tasks.filter(item => !item.completed).length;
         const finished = this.state.tasks.filter(item => item.completed).length;
         return (
@@ -100,9 +105,10 @@ class App extends React.Component {
                         onAddTasks={this.onAddTasksClick}
                         checkAll={this.onCheckAllClick}/>
                     <Tasks
+                        current={current}
                         active={active}
                         finished={finished}
-                        arrLength={this.state.tasks}
+                        arrLength={this.state.tasks.length}
                         del={this.onDelBtnClick}
                         data={this.state.currentTasks}
                         onClickCheckbox={this.onClickCheckbox}
@@ -111,6 +117,7 @@ class App extends React.Component {
                         comp={this.onCompletedTasksClick}
                         clear={this.onClearCompletedClick}
                     />
+
                 </div>
             </div>
         )

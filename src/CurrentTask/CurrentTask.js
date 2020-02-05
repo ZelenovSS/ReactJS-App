@@ -24,7 +24,6 @@ export default class CurrentTask extends React.Component {
                         <input
                             id={this.props.data.id}
                             checked={this.props.data.completed}
-                            value={this.props.data.completed}
                             type='checkbox'
                             onChange={this.onCompletedTaskClick}
                             className='task-check'/>
